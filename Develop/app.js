@@ -13,20 +13,21 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-inquirer.prompt([
-    {
-        type: "input",
-        message: "What is your manager's name?",
-        name: "manager"
-    }
+// inquirer.prompt([
+//     {
+//         type: "input",
+//         message: "What is your manager's name?",
+//         name: "manager"
+//     }
    
-]).then(render({ manager, engineer, intern }) {
-    fs.writeFile("./output/team.html", data, function (err) {
-        if (err) {
-            throw err;
-        }
-    }
-})
+// ]).then(render({ manager, engineer, intern }) {
+//     fs.writeFile("./output/team.html", data, function (err) {
+//         if (err) {
+//             throw err;
+//         }
+//     }
+// })
+
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -47,3 +48,168 @@ inquirer.prompt([
 // for further information. Be sure to test out each class and verify it generates an 
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work!```
+
+const teams = [];
+const idArray = [];
+
+function appCreate() {
+    function createManager() {
+       
+        inquirer.prompt([
+         
+            {
+                type: "input",
+                name: "managerName",
+                message: "What is your manager's name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return " Please input at least one character.";
+                }
+
+            },
+            {
+                type: "input",
+                name: "managerId",
+                message: "What is your manager's id?",
+                
+            },
+
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What is your manager's email?",
+                
+
+            },
+            {
+                type: "input",
+                name: "managerOfficeNumber",
+                message: "What is your manager's office number?",
+              
+            }
+        ])
+            .then(answers => {
+                const manager = new Manager(
+                    answers.managerName, answers.managerEmail, answers.managerId, answers.managerOfficeNumber
+                );
+                teams.push(manager);
+                idArray.push(answers.managerId);
+                createTeam();
+            });
+    }
+
+    function addIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What is your Intern's name",
+              
+            },
+            {
+                type: "input",
+                name: "internId",
+                message: "What is your intern's ID",
+               
+
+                  
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "what is your email?",
+              
+            },
+            {
+                type: "input",
+                name: "internSchool",
+                message: "What is your intern's school?",
+             
+            }
+        ])
+            .then(answers => {
+                const intern = new Intern(
+                    answers.internName, answers.internId, answers.internEmail, answers.internSchool
+                );
+                teams.push(intern);
+                idArray.push(answers.internId);
+                createTeam();
+            });
+    }
+
+    function createTeam() {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "memberChoice",
+                message: "Which type of team member would you like to add?",
+                choices: ["Engineer", "Intern", "I do not want to add anymore team members"]
+            }
+        ])
+            .then(userChoice => {
+                switch (userChoice.profileChoice) {
+                    case "Engineer":
+                        addEngineer();
+                        break;
+                    case "Intern":
+                        addIntern();
+                        break;
+                    default:
+                        buildTeam();
+                }
+            })
+    }
+
+    function addEngineer() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineerName",
+                message: "What is your engineer's name?",
+               
+            },
+            {
+                type: "input",
+                name: "engineerId",
+                message: "What is your engineer's id?",
+                
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "what is your engineer's email",
+               
+            },
+            {
+                type: "input",
+                name: "engineerGithub",
+                message: "what is your engineer's Github username?",
+                
+            }
+        ])
+            .then(answers => {
+                const engineer = new Engineer(
+                    answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub
+                );
+                teams.push(engineer);
+                idArray.push(answers.engineerId);
+                createTeam();
+            });
+    }
+
+
+
+    function buildTeam() {
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR);
+        }
+        fs.writeFileSync(outputPath, render(teams), "utf-8");
+    }
+
+    createManager();
+
+}
+
+appCreate();
