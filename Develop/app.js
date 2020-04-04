@@ -14,21 +14,97 @@ const render = require("./lib/htmlRenderer");
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
-function teamMake(){
+function makeManager(){
 inquirer.prompt([
     {
         type: "input",
         message: "What is your manager's name?",
-        name: "manager"
-    }
-   
-]).then(render({ manager, engineer, intern }) {
-    fs.writeFile("./output/team.html", data, function (err) {
-        if (err) {
-            throw err;
-        }
-    }
+        name: "managerName"
+    },
+   {
+       type: "input",
+       message: "what is your managers ID number?",
+       name: "managerId"
+   },
+   {
+       type: "input",
+       message: "What is your manager's email address?",
+       name: "managerEmail"
+   },
+   {
+    type: "input",
+    message: "What is your manager's office number?",
+    name: "managerOffice"
+   }
+]).them(answer =>{
+    const manager = new Manager(
+        answer.managerName, answer.managerEmail, answer.managerId, answer.managerOfficeNumber
+    );
 })
+}
+
+function makeIntern(){
+    inquirer.prompt([
+
+        {
+            type: "input",
+            message: "What is your intern's name?",
+            name: "internName"
+        },
+       {
+           type: "input",
+           message: "what is your intern's ID number?",
+           name: "internId"
+       },
+       {
+           type: "input",
+           message: "What is your intern's email address?",
+           name: "internEmail"
+       },
+       {
+        type: "input",
+        message: "What school does your intern go to?",
+        name: "internSchool"
+       }
+    ]).them(answer =>{
+        const intern = new Intern(
+            answer.internId, answer.internId, answer.internEmail, answer.internSchool
+        );
+        })
+}
+
+function makeEngineer(){
+    inquirer.prompt([
+
+        {
+            type: "input",
+            message: "What is your engineer's name?",
+            name: "engineerName"
+        },
+       {
+           type: "input",
+           message: "what is your engineers ID number?",
+           name: "engineerId"
+       },
+       {
+           type: "input",
+           message: "What is your engineer's email address?",
+           name: "engineerEmail"
+       },
+       {
+        type: "input",
+        message: "What is your engineer's GitHub name?",
+        name: "engineerHub"
+       }
+    ]).them(answer =>{
+        const engineer = new Engineer(
+            answer.engineerName, answer.engineerId, answer.engineerEmail, answer.engineerHub
+        );
+        })
+}
+
+{
+
 }
 
 // After the user has input all employees desired, call the `render` function (required
