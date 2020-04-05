@@ -10,4 +10,3 @@ User inputs the necessary member information and compiles a website that display
 # Screenshot
 
 ![GitHub Logo](/Assets/Project.PNG)
-Format: ![Alt Text](/Assets/Project.PNG)
