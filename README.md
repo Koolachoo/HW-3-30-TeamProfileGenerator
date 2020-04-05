@@ -8,4 +8,6 @@ This is a generator that takes user input to create a page the details memebers 
 User inputs the necessary member information and compiles a website that displays them in cards. 
 
 # Screenshot
-C:\Users\kirad\prework-about-me\Homework\HW-3-30-TeamProfileGenerator\Assets\Project.PNG
+
+![GitHub Logo](/Assets/Project.PNG)
+Format: ![Alt Text](C:\Users\kirad\prework-about-me\Homework\HW-3-30-TeamProfileGenerator\Assets\Project.PNG)
