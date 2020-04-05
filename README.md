@@ -10,4 +10,4 @@ User inputs the necessary member information and compiles a website that display
 # Screenshot
 
 ![GitHub Logo](/Assets/Project.PNG)
-Format: ![Alt Text](C:\Users\kirad\prework-about-me\Homework\HW-3-30-TeamProfileGenerator\Assets\Project.PNG)
+Format: ![Alt Text](/Assets/Project.PNG)
